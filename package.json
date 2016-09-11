@@ -1,6 +1,6 @@
 {
   "name": "time-cache",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "A key-value cache that puts a expiry date on its entries. ",
   "main": "lib/index.js",
   "jsnext:main": "src/index.js",
