@@ -1,3 +1,5 @@
+'use strict'
+
 exports = module.exports = TimeCache
 
 function TimeCache (options) {
