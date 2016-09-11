@@ -7,6 +7,8 @@ function TimeCache (options) {
     return new TimeCache(options)
   }
 
+  options = options || {}
+
   const validity = options.validity || 30 // seconds
 
   const entries = {}
