@@ -18,7 +18,6 @@
     "lint",
     "test"
   ],
-
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diasdavid/time-cache.git"
@@ -41,5 +40,8 @@
     "aegir": "^8.0.1",
     "chai": "^3.5.0",
     "pre-commit": "^1.1.3"
-  }
+  },
+  "contributors": [
+    "David Dias <daviddias.p@gmail.com>"
+  ]
 }
