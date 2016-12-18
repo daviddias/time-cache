@@ -1,6 +1,6 @@
 {
   "name": "time-cache",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "A key-value cache that puts a expiry date on its entries. ",
   "main": "src/index.js",
   "scripts": {
