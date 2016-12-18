@@ -1,5 +1,6 @@
 'use strict'
 
+const throttle = require('lodash.throttle')
 exports = module.exports = TimeCache
 
 function TimeCache (options) {
@@ -11,56 +12,46 @@ function TimeCache (options) {
 
   const validity = options.validity || 30 // seconds
 
-  const entries = {}
+  const entries = new Map()
+
+  const sweep = throttle(() => {
+    entries.forEach((entry, key) => {
+      const v = entry.validity || validity
+      const delta = getTimeElapsed(entry.timestamp)
+      if (delta > v) {
+        entries.delete(key)
+      }
+    })
+  }, 200)
 
   this.put = (key, value, validity) => {
-    if (!entries[key]) {
-      entries[key] = {
+    if (!this.has(key)) {
+      entries.set(key, {
         value: value,
-        timestamp: getTimeStamp(),
+        timestamp: new Date(),
         validity: validity
-      }
+      })
     }
+
     sweep()
   }
 
   this.get = (key) => {
-    if (entries[key]) {
-      return entries[key].value
+    if (entries.has(key)) {
+      return entries.get(key).value
     } else {
       throw new Error('key does not exist')
     }
   }
 
   this.has = (key) => {
-    if (entries[key]) {
-      return true
-    } else {
-      return false
-    }
+    return entries.has(key)
   }
-
-  function sweep () {
-    Object
-      .keys(entries)
-      .map((key) => {
-        const entry = entries[key]
-        const v = entry.validity || validity
-        const delta = getTimeElapsed(entry.timestamp)
-        if (delta > v) {
-          delete entries[key]
-        }
-      })
-  }
-}
-
-function getTimeStamp () {
-  return new Date()
 }
 
 function getTimeElapsed (prevTime) {
   const currentTime = new Date()
-  const delta = currentTime.getTime() - prevTime.getTime()
-  const seconds = Math.floor((delta) / (1000))
-  return seconds
+  const a = currentTime.getTime() - prevTime.getTime()
+
+  return Math.floor(a / 1000)
 }
