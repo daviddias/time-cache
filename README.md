@@ -40,11 +40,22 @@ time-cache
 
 ### Create a time-cache `const tc = new TimeCache(options)`
 
+ - `options` (`Object`) - options object (optional)
+ - `options.validity` (`Number`) - validity in seconds to keep cached items for, default: 30
+
 ### Add a value `tc.put(key, value, validity)`
+
+- `key` (`String`) - key to store the value under
+- `value` (`?`) - value to store
+- `validity` - validity in seconds to keep this item for, default: 30
 
 ### Has a value `tc.has(key)`
 
+- `key` (`String`) - key to query if the cache has a value for
+
 ### Get a value `tc.get(key)`
+
+- `key` (`String`) - key to get value for
 
 ## Contribute
 
